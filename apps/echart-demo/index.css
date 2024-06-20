@@ -1,0 +1,52 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: #f9f9f9;
+    align-items: center;
+}
+
+
+.page-header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: white;
+}
+
+.page-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /*flex-grow: 1;*/
+    /*flex-shrink: 1;*/
+    max-width: 1400px;
+    max-height: 1400px;
+    min-width: 400px;
+    min-height: 400px;
+    justify-content: center;
+    background: white;
+}
+.menu-container{
+    width: 200px;
+}
+.mini-app-container {
+    border: 1px black solid;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+}
+.menu-item{
+    list-style-type: circle;
+
+}
+.menu-item a{
+    text-decoration: none;
+}
+.menu-item-active{
+    /*background: rebeccapurple;*/
+    font-weight: bold;
+    list-style-type: disc;
+}

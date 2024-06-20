@@ -2,9 +2,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MengxiQ</title>
+    <style>
+        .page-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .audio-container{
+            position: fixed;
+            left: 8px;
+            bottom: 8px;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>MengxiQ Side!</h1>
+    <div class="page-container">
+        <h1>MengxiQ Webside!</h1>
+        <ul>
+            <li><a href="apps/echart-demo/index.html">Echart 图表示例</a></li>
+        </ul>
+
+        <div class="audio-container">
+            <audio id="audio"
+                   controls
+                   preload
+                   autoplay
+            >
+                <source src="./assets/music/Sway-to-My-Beat-in-Cosmos.mp3"/>
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // window.onload = function (){
+        //     setTimeout(() => {
+        //         const audio = document.getElementById('audio');
+        //         audio.play();
+        //     }, 3000)
+        // }
+    </script>
 </body>
 </html>

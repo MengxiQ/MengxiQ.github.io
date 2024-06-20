@@ -1,0 +1,33 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>echart-demo-app</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./libs/vue.global.js"></script>
+    <script src="./index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="page-container">
+            <div class="page-header">
+                <h2>Echart Demos</h2>
+            </div>
+            <div class="page-content">
+                <div class="menu-container">
+                    <ul class="menu-content" v-for="(item, index) in page_list">
+                        <li class="menu-item" :class="{ 'menu-item-active': active_page.url === item.url }" :key="item.name + index" @click="clickPageListItem(item)"> <a @click.prevent href="">{{item.name}}</a></li>
+                    </ul>
+                </div>
+                <div class="mini-app-container">
+                    <iframe width="100%" height="100%" :src="active_page.url" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
