@@ -9,7 +9,7 @@ window.onload = function () {
                     children: [
                         {
                             name: '轮播饼图指示器',
-                            url: './pages/Carouselpie.html'
+                            url: './pages/carousel_pie.html'
                         },
                         {
                             name: 'demo2',

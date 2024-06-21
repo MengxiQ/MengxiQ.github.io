@@ -127,7 +127,6 @@
 
             let currentIndex = 0;
             myChart.on('select', function (params) {
-                console.log(params);
                 currentIndex = params.dataIndexInside === undefined ? params.dataIndex : params.dataIndexInside;
                 setAngle(currentIndex);
             });
@@ -159,8 +158,6 @@
 
 
             setInterval(() => {
-                console.log(' setInterval->currentIndex', currentIndex);
-
                 let nextIndex = currentIndex + 1;
                 if (nextIndex >= data.length) {
                     nextIndex = 0;
