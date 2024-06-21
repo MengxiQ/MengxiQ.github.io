@@ -1,30 +1,71 @@
 window.onload = function () {
-    const { createApp, ref, reactive } = Vue
+    const { createApp, ref, reactive, nextTick } = Vue
 
-    createApp({
+    const app = createApp({
         setup() {
             const page_list = reactive([
                 {
-                    name: 'demo1',
-                    url: './pages/demo1.html'
-                },
-                {
-                    name: 'demo2',
-                    url: './pages/demo2.html'
+                    typeName: '饼图',
+                    children: [
+                        {
+                            name: '轮播饼图指示器',
+                            url: './pages/Carouselpie.html'
+                        },
+                        {
+                            name: 'demo2',
+                            url: './pages/demo2.html'
+                        }
+                    ]
                 }
+
             ]);
-            const active_page = ref(page_list[0]);
+            const active_page = ref(page_list[0].children[0]);
 
             const clickPageListItem = (item) => {
                 active_page.value = item;
             }
 
+            const dialogTableVisible = ref(false);
+
+
+            function handleEdit() {
+                dialogTableVisible.value = true;
+
+                nextTick(() => {
+                    require.config({ paths: { vs: './libs/monaco-editor-0.50.0/package/min/vs' } });
+                    require(['vs/editor/editor.main'], function () {
+                        fetch(active_page.value.url)
+                            .then((response) => response.text())
+                            .then(data => {
+                                var editor = monaco.editor.create(document.getElementById('code-editor'), {
+                                    value: data,
+                                    language: 'html',
+                                    theme:'vs-dark'
+                                });
+                            })
+                            ;
+
+                    });
+                })
+
+            }
+
+
             return {
                 clickPageListItem,
                 page_list,
                 active_page,
+                dialogTableVisible,
+                handleEdit
             }
         }
-    }).mount('#app')
+    });
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+        app.component(key, component)
+    }
+    app.use(ElementPlus);
+
+    app.mount("#app");
+
 
 }
