@@ -3,9 +3,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     baseURL: '/apps/web-chart-demo/',
-    // buildAssetsDir: "/apps/web-chart-demo/_nuxt/"
+    // 默认的_nuxt目录会被服务器拦截
+    buildAssetsDir: "/nuxt/",
   },
-  // buildDir: '../../apps/web-chart-demo/_nuxt',
   nitro: {
     output: {
       publicDir: '../../apps/web-chart-demo/'
