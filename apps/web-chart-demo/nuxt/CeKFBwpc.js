@@ -1,0 +1,1 @@
+import{_ as e,v as t,t as o,x as c}from"./BUqle17A.js";const s={},n=c("p",null,"此页面将显示在 /about 路由。",-1),a=[n];function _(r,l){return o(),t("section",null,a)}const d=e(s,[["render",_]]);export{d as default};

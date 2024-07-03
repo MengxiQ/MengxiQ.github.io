@@ -1,0 +1,181 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo1</title>
+    <!-- <script src="../libs/echarts.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        #my-chart {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="my-chart"></div>
+    <script>
+        window.onload = function () {
+            var chartDom = document.getElementById('my-chart');
+            var myChart = echarts.init(chartDom);
+            let data = [
+                { value: 2048, name: '某某某某域1' },
+                { value: 735, name: '某某某某域2' },
+                { value: 580, name: '某某某某域3' },
+                { value: 484, name: '某某某某域4' },
+                { value: 300, name: '某某某某域5' },
+                { value: 300, name: '某某某某域6' },
+                { value: 1048, name: '某某某某域7' },
+                { value: 735, name: '某某某某域8' },
+                { value: 580, name: '某某某某域9' },
+                { value: 484, name: '某某某某域10' },
+                { value: 300, name: '某某某某域11' },
+                { value: 300, name: '某某某某域12' },
+            ];
+
+            let option = {
+                legend: {
+                    selectedMode: false,
+                    icon: 'circle',
+                    bottom: 0,
+                    width: '90%',
+                    textStyle: {
+                        backgroundColor: 'transparent',
+                        width: 150
+                    },
+                    formatter: function (name) {
+                        let total = data.reduce((pre, current) => pre + current.value, 0);
+                        let find = data.find(item => item.name === name);
+                        let p = Number(find.value / total * 100).toFixed(2)
+                        return `${name} ${find.value} (${p}%)`
+                    },
+                    emphasis: {
+                        selectorLabel: {
+                            color: 'red'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: ['30%', '50%'],
+                        center: ['32%', '35%'],
+                        avoidLabelOverlap: false,
+                        padAngle: 4,
+                        itemStyle: {
+
+                        },
+                        label: {
+                            show: false,
+                        },
+                        stillShowZeroSum: false,
+                        selectedMode: 'single',
+                        selectedOffset: 10,
+                        label: {
+                            show: false,
+                            position: 'outer',
+                            formatter: '{a|{d}%}\n{n|{b}} {v|{c}}个',
+                            fontFamily: '微软雅黑',
+                            rich: {
+                                a: {
+                                    color: 'blue',
+                                    fontSize: 18,
+                                    lineHeight: 24,
+                                    fontWeight: 700
+                                },
+                                n: {
+                                    fontSize: 12,
+                                },
+                                v: {
+                                    fontSize: 16,
+                                    fontWeight: 700
+                                }
+                            },
+                        },
+                        labelLine: {
+                            show: false,
+                            length2: 30
+                        },
+                        emphasis: {
+                            disabled: true,
+                        },
+                        select: {
+                            label: {
+                                show: true,
+                            },
+                            labelLine: {
+                                show: true
+                            }
+                        },
+                        data: data,
+                    }
+                ]
+            };
+
+
+            myChart.setOption(option);
+
+            myChart.dispatchAction({
+                type: 'select',
+                dataIndex: 0
+            });
+
+
+            let currentIndex = 0;
+            myChart.on('select', function (params) {
+                currentIndex = params.dataIndexInside === undefined ? params.dataIndex : params.dataIndexInside;
+                setAngle(currentIndex);
+            });
+
+            function setAngle(currentIndex) {
+                let total = data.reduce((pre, current) => pre + current.value, 0);
+                // 计算n - 1 前面所有的数量的和 的比例
+                let p = data.slice(0, currentIndex).reduce((pre, current) => pre + current.value, 0) / total;
+
+                let angle = 0;
+                if (currentIndex > 0) {
+                    angle = (360 * p);
+                }
+
+                // 默认90度， 再加上一点偏移
+                let startAngle = 90 + (-50) + angle;
+                // 当角度> 360度的时候就会回旋一圈
+                // console.log(startAngle);
+                myChart.setOption({
+                    series: [
+                        {
+                            name: 'Access From',
+                            startAngle,
+                        }
+                    ]
+                });
+            }
+
+
+
+            setInterval(() => {
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= data.length) {
+                    nextIndex = 0;
+                }
+                if (nextIndex < 0) {
+
+                }
+                currentIndex = nextIndex;
+                // setAngle(currentIndex);
+                myChart.dispatchAction({
+                    type: 'select',
+                    dataIndex: currentIndex
+                });
+
+            }, 3000)
+
+        }
+    </script>
+</body>
+
+</html>

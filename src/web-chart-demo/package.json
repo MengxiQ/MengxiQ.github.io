@@ -10,7 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "monaco-editor": "^0.50.0",
     "nuxt": "^3.12.2",
     "vue": "latest"
+  },
+  "devDependencies": {
+    "@element-plus/nuxt": "^1.0.9",
+    "element-plus": "^2.7.6",
+    "sass": "^1.77.6"
   }
 }
